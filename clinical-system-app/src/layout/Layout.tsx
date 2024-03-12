@@ -47,7 +47,7 @@ export const Layout = () => {
                     </p>
                 </div>
 
-                <div className="flex items-center justify-center w-full bg-white rounded-2xl m-8 text-black">
+                <div className="flex items-start justify-center w-full bg-white rounded-2xl m-8 py-14 text-black">
                     <Page />
                 </div>
             </div>

@@ -4,6 +4,7 @@ const options: OptionsTable = {
     showSeachInput: true,
     showAddBtn: true,
     showTable: true,
+    showFilter: true
 }
 
 const columns: ColumnDef[] = [
@@ -19,12 +20,12 @@ const columns: ColumnDef[] = [
         column: 'description',
         type: 'string',
         filterOption: true,
-        width: 100,
+        width: 300,
     },
     {
         header: 'Precio',
         column: 'cost',
-        type: 'string',
+        type: 'price',
         filterOption: true,
         width: 100,
     },

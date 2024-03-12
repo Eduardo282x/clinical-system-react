@@ -12,6 +12,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
+import Switch from '@mui/material/Switch';
 import Button from '@mui/material/Button';
 
 import Backdrop from '@mui/material/Backdrop';
@@ -53,6 +54,7 @@ export {
     IconButton,
 
     Button,
+    Switch,
     InputAdornment,
     FormControl,
     InputLabel,

@@ -21,6 +21,7 @@ import {
     DoneIcon,
     CloseIcon,
     MedicalServicesIcon,
+    Switch,
 } from "../../shared/materialUI.ts";
 import React, { useState, useEffect } from "react";
 import { StyledTableCell } from "./table.ts";
@@ -28,7 +29,7 @@ import { StyledTableCell } from "./table.ts";
 import "./table.css";
 import { pink } from "@mui/material/colors";
 
-export const TableComponents: React.FC<ShortTableInterface> = ({tableConfig, returnData}) => {
+export const TableComponents: React.FC<ShortTableInterface> = ({tableConfig, returnData, secondFunction}) => {
     const {
         iconTitle,
         // widthDiv,
@@ -37,6 +38,7 @@ export const TableComponents: React.FC<ShortTableInterface> = ({tableConfig, ret
         columns,
         optionsComponents,
     } = tableConfig;
+    const [active, setActive] = useState<boolean>(false);
     const [page, setPage] = useState<number>(0);
     const [rowsPerPage, setRowsPerPage] = useState<number>(10);
     const [dataFilter, setDateFilter] = useState<any[]>([]);
@@ -56,6 +58,11 @@ export const TableComponents: React.FC<ShortTableInterface> = ({tableConfig, ret
         // if (actionIcon == "light") return <LightbulbIcon />;
         // if (actionIcon == "engine") return <EngineeringIcon />;
     };
+
+    const change = () => {
+        setActive(!active);
+        secondFunction(active);
+    }
 
     const handleChangePage = (event: any, newPage: number) => {
         setPage(newPage);
@@ -104,12 +111,19 @@ export const TableComponents: React.FC<ShortTableInterface> = ({tableConfig, ret
     return (
         <div className={classWidth}>
             <div className="flex items-center justify-between w-full px-5">
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center gap-3">
                     <p className="text-[#1565c0]">{setIcon(iconTitle)}</p>
-                    <p className="text-black font-bold text-[18px]">{title}</p>
+                    <p className="text-black font-bold text-[24px]">{title}</p>
                 </div>
 
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center gap-3">
+                    {optionsComponents.showFilter && (
+                        <>
+                            <p>Disponibles</p>
+                            <Switch onClick={change}/>
+                        </>
+                    )}
+
                     {optionsComponents.showSeachInput && (
                         <FormControl sx={{ width: "20vw" }} variant="outlined">
                             <InputLabel>Buscar</InputLabel>
@@ -150,16 +164,10 @@ export const TableComponents: React.FC<ShortTableInterface> = ({tableConfig, ret
                                 .map((row, index) => (
                                     <TableRow key={index} sx={{ background: "#e5e7eb" }}>
                                         {columns.map((ro: ColumnDef, key: number) => (
-                                            <TableCell
-                                                key={key}
-                                                sx={{ width: ro.width ? ro.width : 100 }}
-                                            >
+                                            <TableCell key={key} sx={{ width: ro.width ? ro.width : 100 }}>
                                                 {ro.type == "string" ? row[ro.column] : ""}
-                                                {/* {ro.type == "mm" ? row[ro.column] + "mm" : ""}
-                                            {ro.type == "price" ? row[ro.column] + "$" : ""} */}
+                                                {ro.type == "price" ? row[ro.column] + ".00$" : ""} 
                                                 {ro.type == "date" ? row[ro.column] : ""}
-                                                {/* {ro.type == "time" ? ParseTimeString(row[ro.column]) : ""} */}
-                                                {/* {ro.type == "boolean" ? (row[ro.column] == true ? 'Si': 'no') : ''}  */}
                                                 {ro.type == "boolean" ? setIcon(row[ro.column]) : ""}
                                                 {ro.type == "icon" && (
                                                     <IconButton
@@ -181,7 +189,7 @@ export const TableComponents: React.FC<ShortTableInterface> = ({tableConfig, ret
             <div className="flex items-center justify-end w-full">
                 {dataFilter.length > 5 && (
                     <TablePagination
-                        rowsPerPageOptions={[5, 10, 25, 50, 100]}
+                        rowsPerPageOptions={[10, 25, 50, 100]}
                         component="div"
                         count={dataFilter.length}
                         rowsPerPage={rowsPerPage}

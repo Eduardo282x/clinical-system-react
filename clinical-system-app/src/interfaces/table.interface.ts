@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export interface ShortTableInterface {
-    tableConfig: TableInterface
-    returnData: any
+    tableConfig: TableInterface;
+    returnData: any;
+    secondFunction: any;
 }
 
 export interface TableInterface {
@@ -27,6 +28,7 @@ export interface OptionsTable {
     showSeachInput: boolean;
     showAddBtn: boolean;
     showTable: boolean;
+    showFilter: boolean;
 }
 
 export interface RowAction {
