@@ -1,0 +1,8 @@
+.imageLogo{
+    background-image: url('../assets/images/logo.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 3rem;
+    height: 3rem;
+}
